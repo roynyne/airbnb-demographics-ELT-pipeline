@@ -1,0 +1,12 @@
+sources:
+  - name: raw
+    description: Raw data from CSV files
+    database: postgres
+    schema: bronze
+
+    tables:
+      - name: raw_airbnb_listings
+      - name: raw_lga_codes
+      - name: raw_lga_suburbs
+      - name: raw_census_g02
+      - name: raw_census_g01

@@ -1,0 +1,18 @@
+WITH source AS (
+    SELECT * FROM {{ ref('s_airbnb_listings') }}  -- Silver layer Airbnb listings
+)
+
+SELECT
+    listing_id,
+    host_id,
+    DATE_TRUNC('month', scraped_date) AS month_year,
+    CAST(price AS NUMERIC) AS price,
+    number_of_reviews,
+    availability_30,
+    30 - availability_30 AS number_of_stays,
+    (30 - availability_30) * price AS estimated_revenue,
+    review_scores_rating,  -- Ensure review_scores_rating is included
+    has_availability,  -- Ensure has_availability is included
+    listing_neighbourhood
+FROM source
+WHERE listing_id IS NOT NULL

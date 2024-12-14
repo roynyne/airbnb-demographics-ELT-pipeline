@@ -1,0 +1,14 @@
+WITH source AS (
+    SELECT * 
+    FROM {{ ref('b_lga_suburbs') }}
+),
+
+cleaned AS (
+    SELECT
+        TRIM(lga_name) AS lga_name,
+        TRIM(suburb_name) AS suburb_name
+    FROM source
+    WHERE lga_name IS NOT NULL AND suburb_name IS NOT NULL  -- Ensure no null values
+)
+
+SELECT * FROM cleaned
